@@ -1,6 +1,9 @@
 ﻿using System;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Distribute;
 
 namespace MobileTests
 {
@@ -14,6 +17,8 @@ namespace MobileTests
             }
             else
             {
+                
+                AppCenter.Start("{Your Xamarin iOS App Secret}", typeof(Distribute));
                 return ConfigureApp.iOS.StartApp();
             }
            

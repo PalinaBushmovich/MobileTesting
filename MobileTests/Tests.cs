@@ -16,6 +16,9 @@ namespace MobileTests
         IApp _app;
         Platform platform;
 
+        private string _searchText = "пылесос";
+        private string _scrollDownToText = "Робот для уборки пола Xiaomi Mi Robot(белый)";
+
         private string _path = @"C:\MobileTests\test.apk";
 
         public Tests(Platform platform)
@@ -31,25 +34,22 @@ namespace MobileTests
 
         [Test]
         public void PerformSearch_VerifyThatSearchResultsAreDisplayed()
-        {
-            string searchText = "пылесос";
-            string scrollDownToText = "Робот для уборки пола Xiaomi Mi Robot(белый)";
-
+        {        
             _app.Tap(c => c.Id("nextView"));
             _app.Tap(c => c.Id("nextView"));
             _app.Tap(c => c.Id("nextView"));
             _app.Tap(c => c.Id("nextView"));
             _app.Tap(c => c.Id("nextView"));
-            _app.EnterText(c => c.Id("menu_search"), searchText);
+            _app.EnterText(c => c.Id("menu_search"), _searchText);
             _app.PressEnter();
             _app.DismissKeyboard();
              _app.ScrollDown();
             
-            AppResult[] results = _app.WaitForElement(c => c.Marked(scrollDownToText));
+            AppResult[] results = _app.WaitForElement(c => c.Marked(_scrollDownToText));
 
              _app.Screenshot("Screen from onliner.");
 
-            Assert.IsTrue(results.Any());
+            Assert.IsTrue(results.Length > 0, $"Search text '{_scrollDownToText}' is not found");
         }
     }
 }
